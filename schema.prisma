@@ -1,0 +1,63 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum BalanceType {
+  FREE
+}
+
+enum TransactionType {
+  SYSTEM
+  CODE
+  BET
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  username String? @db.VarChar()
+  tgId Int @unique
+  name String
+
+  transactions Transaction[]
+}
+
+model Event {
+  id Int @id @default(autoincrement())
+  results Result[]
+  description String
+  activeUntil DateTime
+}
+
+model Result {
+  id Int @id @default(autoincrement())
+  coff Decimal @db.Decimal(6, 2)
+  eventId Int
+  condition String?
+  description String
+  status String @db.VarChar() @default("waiting")
+  event Event @relation(fields: [eventId], references: [id])
+}
+
+model Transaction {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  relatedType TransactionType
+  relatedId Int?
+  balanceType BalanceType
+  date DateTime @default(now())
+  amount Decimal @db.Decimal(8, 2)
+}
+
+model BalanceCode {
+  id Int @id @default(autoincrement())
+  code String @db.VarChar()
+  amount Decimal @db.Decimal(8, 2)
+
+  balanceType BalanceType
+}
