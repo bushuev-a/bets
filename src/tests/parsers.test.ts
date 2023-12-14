@@ -56,48 +56,48 @@ describe('parseBattleResult', () => {
         corpId: corpIds.piper,
         isDef: false,
         stockCost: 22,
-        roundForCorp: corpIds.umbrl,
-        defOdd: undefined,
+        roundForCorpId: corpIds.umbrl,
+        defMultiplier: undefined,
         score: 6_302
       },
       {
         corpId: corpIds.hooli,
         isDef: true,
         stockCost: 100,
-        roundForCorp: undefined,
-        defOdd: 70,
+        roundForCorpId: undefined,
+        defMultiplier: 70,
         score: 10_016
       },
       {
         corpId: corpIds.stark,
         isDef: false,
         stockCost: 56,
-        roundForCorp: corpIds.wayne,
-        defOdd: undefined,
+        roundForCorpId: corpIds.wayne,
+        defMultiplier: undefined,
         score: 8_540
       },
       {
         corpId: corpIds.umbrl,
         isDef: true,
         stockCost: 51,
-        roundForCorp: undefined,
-        defOdd: 130,
+        roundForCorpId: undefined,
+        defMultiplier: 130,
         score: 16_458
       },
       {
         corpId: corpIds.wayne,
         isDef: false,
         stockCost: 31,
-        roundForCorp: 1,
-        defOdd: undefined,
+        roundForCorpId: 1,
+        defMultiplier: undefined,
         score: 3_136
       },
       {
         corpId: corpIds.bmesa,
         isDef: false,
         stockCost: 3,
-        roundForCorp: corpIds.stark,
-        defOdd: undefined,
+        roundForCorpId: corpIds.stark,
+        defMultiplier: undefined,
         score: 5_565
       }
     ]

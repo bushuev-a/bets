@@ -1,12 +1,13 @@
 import { type Context, type SessionFlavor } from 'grammy'
 import { type Conversation, type ConversationFlavor } from '@grammyjs/conversations'
+import { type PrismaClient } from '@prisma/client'
 
 export interface ParsedBattleCorpResult {
   isDef: boolean
   corpId: number
   stockCost: number
-  roundForCorp?: number
-  defOdd?: number
+  roundForCorpId?: number
+  defMultiplier?: number
   score: number
 }
 
@@ -32,14 +33,9 @@ interface HasWeight {
 export interface WeightedBattleCorpResult extends BattleCorpResult, HasWeight {}
 export interface WeightedScore extends HasScore, HasWeight {}
 
-export interface BattleCache {
-  weightedResults?: Record<string, WeightedBattleCorpResult[]>
-  odds?: Record<string, RangedOdd[]>
-}
-
 export interface SessionData {
   deleteOnCancel: number[]
 }
 
-export type MyContext = Context & ConversationFlavor & SessionFlavor<SessionData> & { cache: BattleCache }
+export type MyContext = Context & ConversationFlavor & SessionFlavor<SessionData>
 export type MyConversation = Conversation<MyContext>

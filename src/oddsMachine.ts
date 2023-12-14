@@ -68,7 +68,7 @@ export const calculateOdds = (battleResults: BattleCorpResult[], nextBattleHour?
       const rangeOdd = (from: number, to: number): number => Math.min(1 / (_.chain(results)
         .filter((result) => result.score >= from && result.score <= to)
         .sumBy('weight')
-        .value() / totalWeight + COMMISSION), 30)
+        .value() / totalWeight + COMMISSION), 20)
 
       return [
         { min: 0, max: 0 },

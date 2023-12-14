@@ -1,3 +1,6 @@
+import { Keyboard } from 'grammy';
+import _ from 'lodash';
+
 export const corpIds = {
   piper: 1,
   hooli: 2,
@@ -32,6 +35,25 @@ export const corpsName: Record<string, string> = {
   [corpIds.bmesa]: '☣️Black Mesa'
 }
 
+export const keyboardTexts = {
+  balance: 'Баланс',
+  bet: 'Сделать ставку',
+  deposit: 'Пополнить баланс',
+  withdraw: 'Вывод',
+  top: 'Топ',
+  history: 'История'
+}
+
+export const keyboard = new Keyboard(
+  _.chain(keyboardTexts)
+    .values()
+    .map(text => ({ text }))
+    .chunk(2)
+    .value()
+).resized()
+
+export const cancelKeyboard = new Keyboard().add('Отмена').resized()
+
 export const isDefByEmoji: Record<string, boolean> = {
   '⚔': false,
   '🛡': true
@@ -47,3 +69,5 @@ export const WEIGHTS = {
   rage: 0.4,
   sameHour: 0.2
 }
+
+export const DB_INFINITY = 322_000

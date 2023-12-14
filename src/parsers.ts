@@ -15,18 +15,18 @@ export const parseBattleResult = (text: string): ParsedBattleCorpResult[] => {
     return [corpIdsByEmoji[corp], Number(score.replaceAll(' ', ''))]
   }).filter(x => x != null).fromPairs().value()
   return lines.map(line => {
-    const result = /^(?<def>⚔|🛡).+ (?<corp>📯|🤖|⚡️|☂️|🎩|☣️).+\n(?:🏅Топ взломщики: .+\n)?(?:🏅Топ защитники: .+\n)?(?:(?<roundFor>📯|🤖|⚡️|☂️|🎩|☣️)Второй раунд: .+\n)?(?:💵У взломщиков отобрали \$[\d ]+ 💵\. \+ [\d ]+ 🏆 за защиту \((?<defOdd>[01]\.\d{2})➗\)\.|.+)\n(?:📈|📉)Акции компании (?<stockChange>упали|не изменились|выросли) в цене (?:—|до) \$(?<stockCost>\d+) 💵$/u.exec(line)
+    const result = /^(?<def>⚔|🛡).+ (?<corp>📯|🤖|⚡️|☂️|🎩|☣️).+\n(?:🏅Топ взломщики: .+\n)?(?:🏅Топ защитники: .+\n)?(?:(?<roundFor>📯|🤖|⚡️|☂️|🎩|☣️)Второй раунд: .+\n)?(?:💵У взломщиков отобрали \$[\d ]+ 💵\. \+ [\d ]+ 🏆 за защиту \((?<defMultiplier>[01]\.\d{2})➗\)\.|.+)\n(?:📈|📉)Акции компании (?<stockChange>упали|не изменились|выросли) в цене (?:—|до) \$(?<stockCost>\d+) 💵$/u.exec(line)
     if (result == null || result.groups == null) {
       return null
     }
-    const { def, corp, stockCost, roundFor, defOdd } = result.groups
+    const { def, corp, stockCost, roundFor, defMultiplier } = result.groups
     const corpId = corpIdsByEmoji[corp]
     const corpResult: ParsedBattleCorpResult = {
       corpId,
       isDef: isDefByEmoji[def],
       stockCost: Number(stockCost),
-      roundForCorp: corpIdsByEmoji[roundFor],
-      defOdd: defOdd != null ? Number(defOdd.replace('.', '')) : undefined,
+      roundForCorpId: corpIdsByEmoji[roundFor],
+      defMultiplier: defMultiplier != null ? Number(defMultiplier.replace('.', '')) : undefined,
       score: scoresTable[corpId]
     }
     return corpResult

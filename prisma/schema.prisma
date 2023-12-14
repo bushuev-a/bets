@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        BigInt   @id @default(autoincrement())
+  name      String @default("Аноним")
+  username  String?
+  createdAt DateTime @default(now())
+
+  transactions Transaction[]
+  bets         Bet[]
+}
+
+model Battle {
+  id        Int      @id @default(autoincrement())
+  time      DateTime @unique
+  createdAt DateTime @default(now())
+
+  results BattleResult[]
+}
+
+model BattleResult {
+  id             Int      @id @default(autoincrement())
+  battleId       Int
+  battle         Battle   @relation(fields: [battleId], references: [id])
+  corpId         Int
+  isDef          Boolean
+  stockCost      Int
+  roundForCorpId Int?
+  defMultiplier  Int?
+  score          Int
+  createdAt      DateTime @default(now())
+
+  events Event[]
+
+  @@unique([battleId, corpId])
+}
+
+model Event {
+  id                    Int           @id @default(autoincrement())
+  name                  String
+  relatedBattleResultId Int?
+  relatedBattleResult   BattleResult? @relation(fields: [relatedBattleResultId], references: [id])
+  startTime             DateTime
+  endTime               DateTime
+  corpId                Int // for now we only support events with score
+  createdAt             DateTime      @default(now())
+
+  outcomes EventOutcome[]
+}
+
+model EventOutcome {
+  id       Int     @id @default(autoincrement())
+  eventId  Int
+  event    Event   @relation(fields: [eventId], references: [id])
+  odds     Decimal @db.Decimal(4, 2)
+  scoreMin Int
+  scoreMax Int
+
+  bets Bet[]
+}
+
+model Bet {
+  id             Int          @id @default(autoincrement())
+  amount         Decimal      @db.Money
+  userId         BigInt
+  user           User         @relation(fields: [userId], references: [id])
+  eventOutcomeId Int
+  eventOutcome   EventOutcome @relation(fields: [eventOutcomeId], references: [id])
+  transactionId  Int          @unique
+  transaction    Transaction  @relation(fields: [transactionId], references: [id])
+  status         BetStatus    @default(pending)
+  createdAt      DateTime     @default(now())
+}
+
+enum BetStatus {
+  won
+  lost
+  pending
+}
+
+model Transaction {
+  id         Int             @id @default(autoincrement())
+  userId     BigInt
+  user       User            @relation(fields: [userId], references: [id])
+  type       TransactionType
+  relatedBet Bet?            @relation()
+  amount     Decimal         @db.Money
+  createdAt  DateTime        @default(now())
+}
+
+enum TransactionType {
+  deposit
+  withdraw
+  bet
+}
