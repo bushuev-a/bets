@@ -20,7 +20,7 @@ export async function withdrawConversation (conversation: MyConversation, ctx: M
     const number = await conversation.form.int(async ctx => {
       await ctx.reply('Введите сумму для пополнения или /cancel.')
     })
-    if (number <= 0) {
+    if (number <= 0 || number > 5000) {
       continue
     }
     const amount = number * -1
