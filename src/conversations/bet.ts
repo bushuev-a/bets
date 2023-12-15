@@ -111,7 +111,8 @@ export async function betConversation (conversation: MyConversation, ctx: MyCont
       conversation.session.deleteOnCancel = []
       await newCtx.answerCallbackQuery()
       await ctx.api.sendMessage(-1002110849593, `#id${userId} @${ctx.from?.username ?? ''}
-${text}`)
+${text}
+Sum: ${f(sum)}`)
       await newCtx.editMessageText(`${text}
 Сумма ставки: ${f(sum)}.
 Возможный выигрыш ${f(odds.mul(sum).toNumber())}.
