@@ -1,6 +1,6 @@
-import { parseBattleResult, parseUserNumber } from '@/parsers'
-import { type ParsedBattleCorpResult } from '@/types'
-import { corpIds } from '@/constants'
+import { parseBattleResult, parseUserNumber } from '../parsers'
+import { type ParsedBattleCorpResult } from '../types'
+import { corpIds } from '../constants'
 
 describe('parseBattleResult', () => {
   // TODO: more testcases (?)

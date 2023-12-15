@@ -1,5 +1,5 @@
-import { findPercentile } from '@/oddsMachine'
-import { type WeightedScore } from '@/types'
+import { findPercentile } from '../oddsMachine'
+import { type WeightedScore } from '../types'
 
 describe('findPercentile', () => {
   it('returns the correct score for a given percentile', () => {

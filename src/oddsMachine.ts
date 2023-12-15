@@ -1,7 +1,7 @@
 // TODO: somehow split this functions and write tests
 import _ from 'lodash'
-import { type BattleCorpResult, type RangedOdd, type WeightedScore } from '@/types'
-import { COMMISSION, NEW_BATTLE_THRESHOLD, WEIGHTS } from '@/constants'
+import { type BattleCorpResult, type RangedOdd, type WeightedScore } from './types'
+import { COMMISSION, NEW_BATTLE_THRESHOLD, WEIGHTS } from './constants'
 
 export const findPercentile = (sortedResults: WeightedScore[], percentile: number): number => {
   const totalWeight = _.sumBy(sortedResults, 'weight')

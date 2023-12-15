@@ -1,5 +1,5 @@
-import { type ParsedBattleCorpResult } from '@/types'
-import { corpIdsByEmoji, isDefByEmoji } from '@/constants'
+import { type ParsedBattleCorpResult } from './types'
+import { corpIdsByEmoji, isDefByEmoji } from './constants'
 import _ from 'lodash'
 
 export const parseBattleResult = (text: string): ParsedBattleCorpResult[] => {

@@ -1,12 +1,12 @@
-import { type MyContext, type MyConversation } from '@/types'
-import { cancelKeyboard, corpsName, keyboard } from '@/constants'
-import { checkBalance, deleteMessages, f, fScoreRange, sleep } from '@/utils'
+import { type MyContext, type MyConversation } from '../types'
+import { cancelKeyboard, corpsName, keyboard } from '../constants'
+import { checkBalance, deleteMessages, f, fScoreRange, sleep } from '../utils'
 import { InlineKeyboard } from 'grammy'
 // import { XXHash3 } from 'xxhash-addon'
-import { parseUserNumber } from '@/parsers'
+import { parseUserNumber } from '../parsers'
 import { Decimal } from '@prisma/client/runtime/library'
 import { TransactionType } from '@prisma/client'
-import { prisma } from '@/db'
+import { prisma } from '../db'
 import { isPast } from 'date-fns'
 
 export async function betConversation (conversation: MyConversation, ctx: MyContext): Promise<void> {

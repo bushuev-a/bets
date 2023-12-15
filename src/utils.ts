@@ -1,6 +1,6 @@
-import { type MyContext } from '@/types'
-import { DB_INFINITY, keyboard } from '@/constants'
-import { prisma } from '@/db'
+import { type MyContext } from './types'
+import { DB_INFINITY, keyboard } from './constants'
+import { prisma } from './db'
 
 const intlNum = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 2 })
 const intlNumWithPlus = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 2, signDisplay: 'exceptZero' })

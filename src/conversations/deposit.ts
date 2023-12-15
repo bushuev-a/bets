@@ -1,9 +1,9 @@
-import type { MyContext, MyConversation } from '@/types'
-import { cancelKeyboard, keyboard } from '@/constants'
+import type { MyContext, MyConversation } from '../types'
+import { cancelKeyboard, keyboard } from '../constants'
 import { Decimal } from '@prisma/client/runtime/library'
-import { prisma } from '@/db'
+import { prisma } from '../db'
 import { TransactionType } from '@prisma/client'
-import { f } from '@/utils'
+import { f } from '../utils'
 
 const FRIDAY_KEY = process.env.FRIDAY_KEY ?? ''
 const MY_ID = Number(process.env.MY_ID)

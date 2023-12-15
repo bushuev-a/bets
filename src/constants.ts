@@ -1,5 +1,5 @@
-import { Keyboard } from 'grammy';
-import _ from 'lodash';
+import { Keyboard } from 'grammy'
+import _ from 'lodash'
 
 export const corpIds = {
   piper: 1,
