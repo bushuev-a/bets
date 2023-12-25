@@ -70,4 +70,6 @@ export const WEIGHTS = {
   sameHour: 0.2
 }
 
+export const currency = '🚀'
+
 export const DB_INFINITY = 322_000

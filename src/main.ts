@@ -7,7 +7,7 @@ import { cancelHandler, f, fRange } from './utils'
 import { betConversation } from './conversations/bet'
 import { BetStatus } from '@prisma/client'
 import _ from 'lodash'
-import { corpsName, DB_INFINITY, keyboard, keyboardTexts } from './constants'
+import { corpsName, currency, DB_INFINITY, keyboard, keyboardTexts } from './constants'
 import { calculateOdds } from './oddsMachine'
 import { fromUnixTime, set, addMinutes, isPast, addHours, subMinutes } from 'date-fns'
 import { prisma } from './db'
@@ -73,7 +73,7 @@ bot.chatType('private').hears(keyboardTexts.balance, async ctx => {
       userId: ctx.from.id
     }
   })
-  await ctx.reply(`У вас ${f(amount == null ? 0 : amount.toNumber())} денег`)
+  await ctx.reply(`У вас ${f(amount == null ? 0 : amount.toNumber())} 🚀`)
 })
 
 bot.chatType('private').on('message:text').hears(/\n\nПо итогам битвы компаниям начислено:(?:\n.+){6}/, async ctx => {
@@ -293,7 +293,8 @@ bot.hears(keyboardTexts.top, async ctx => {
       _sum: {
         amount: 'desc'
       }
-    }
+    },
+    take: 10
   })
 
   const userIds = betsSum.map(entry => entry.userId)
@@ -305,13 +306,13 @@ bot.hears(keyboardTexts.top, async ctx => {
     }
   })
 
-  const top = betsSum.map(entry => {
+  const top = betsSum.map((entry, i) => {
     const user = users.find(u => u.id === entry.userId)
     const amount = entry._sum?.amount?.toNumber?.()
     if (user == null || amount == null) {
       return null
     }
-    return `${user.name} - ${f(amount, true)}`
+    return `${i + 1}. ${user.name} - ${f(amount, true)}${currency}`
   }).filter(Boolean).join('\n')
   await ctx.reply(`Топ победителей:
 

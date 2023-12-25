@@ -1,5 +1,5 @@
 import type { MyContext, MyConversation } from '../types'
-import { cancelKeyboard, keyboard } from '../constants'
+import { cancelKeyboard, currency, keyboard } from '../constants'
 import { Decimal } from '@prisma/client/runtime/library'
 import { prisma } from '../db'
 import { TransactionType } from '@prisma/client'
@@ -39,7 +39,7 @@ export async function depositConversation (conversation: MyConversation, ctx: My
         userId
       }
     })
-    await ctx.reply(`Зачислено ${f(amount.toNumber())} RR`, {
+    await ctx.reply(`Зачислено ${f(amount.toNumber())} ${currency}`, {
       reply_markup: keyboard
     })
     return
